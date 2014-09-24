@@ -1,0 +1,35 @@
+{
+    "name": "ipunkt/auth",
+    "description": "",
+    "homepage": "https://github.com/ipunkt/auth",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sven Speckmaier",
+            "email": "sps@ipunkt.biz"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git://github.com/orchestral/phpseclib.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.2.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "2.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/controllers"
+        ],
+        "psr-0": {
+            "Ipunkt\\Auth\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
