@@ -50,7 +50,7 @@ class ReminderController extends Controller {
             'email' => Input::get('email')
         ];
 
-        if (Config::get('auth::set reminder'))
+        if (Config::get('auth::set_reminder'))
             Config::set('auth.reminder.email', 'auth::reminder/email');
 
         $result = Password::remind($credentials, function ($message) {
