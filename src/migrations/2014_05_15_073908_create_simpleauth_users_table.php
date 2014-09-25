@@ -53,8 +53,8 @@ class CreateSimpleauthUsersTable extends Migration {
 	 */
 	public function down()
 	{
-        $config_values =  Config::get('auth::user table');
-		Schema::drop($config_values['table name']);
+        $config_values =  Config::get('auth::user_table');
+		Schema::drop($config_values['table_name']);
 	}
 
 }
