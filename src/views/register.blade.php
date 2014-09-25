@@ -75,10 +75,10 @@
     </div>
     @endif
     <div class="row">
-        @if(isset($socialauth_register_links))
-            @foreach ($socialauth_register_links as $link)
+        @if(class_exists('Ipunkt\SocialAuth\SocialAuth'))
+            @foreach (Ipunkt\SocialAuth\SocialAuth::getProviders() as $provider)
                 <div class="col-sm-2">
-                    {{ $link->getLink($link->getName()) }}
+                    {{ $provider->registerLink($provider->getName()) }}
                 </div>
             @endforeach
         @endif
