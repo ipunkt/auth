@@ -17,7 +17,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/support": "4.2.*",
+		  "ipunkt/permissions": "dev-master"
     },
     "require-dev": {
         "orchestra/testbench": "2.2.*"
