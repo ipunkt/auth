@@ -32,8 +32,8 @@
     {{ Form::open(['route' => 'auth.perform_login']) }}
     <div class="row">
         <div class="col-sm-12">
-            {{ Form::label( Config::get('auth::user table.login through field'), trans('auth::user.'.Config::get('auth::user table.login through field')) ) }}
-            {{ Form::text(Config::get('auth::user table.login through field')) }}
+            {{ Form::label( Config::get('auth::user_table.login_through_field'), trans('auth::user.'.Config::get('auth::user_table.login_through_field')) ) }}
+            {{ Form::text(Config::get('auth::user_table.login_through_field')) }}
         </div>
     </div>
     <div class="row">

@@ -66,7 +66,7 @@ class UserController extends \Controller {
 
         $variables = [];
         $variables['extends'] = Config::get('auth::view.extends');
-        $variables['extra_fields'] = Config::get('auth::user table.extra fields');
+        $variables['extra_fields'] = Config::get('auth::user_table.extra_fields');
         if(Session::has('registerInfo'))
             $variables['registerInfo'] = Session::get('registerInfo');
 
@@ -89,7 +89,7 @@ class UserController extends \Controller {
         $response = null;
         $model = Config::get('auth.model');
 
-        $identifier_field = Config::get('auth::user table.login through field');
+        $identifier_field = Config::get('auth::user_table.login_through_field');
         $email_field = 'email';
         $password_field = 'password';
         $password_confirm_field = 'password_confirmation';
@@ -118,7 +118,7 @@ class UserController extends \Controller {
 
         }
 
-        foreach(Config::get('auth::user table.extra fields') as $extra_field) {
+        foreach(Config::get('auth::user_table.extra_fields') as $extra_field) {
             $field_name = $extra_field['name'];
             $rules[$field_name] = $extra_field['validation rules'];
             $new_user->setExtra($field_name, Input::get($field_name));
@@ -168,7 +168,7 @@ class UserController extends \Controller {
             $variables = [];
             $variables['extends'] = $extends;
             $variables['user'] = $user;
-            $variables['extra_fields'] = Config::get('auth::user table.extra fields');
+            $variables['extra_fields'] = Config::get('auth::user_table.extra_fields');
             $variables['can_enable'] = (Auth::user()->can('disable', $user) && !Auth::user()->isEqual($user));
 
             $response = View::make('auth::user/edit', $variables);
@@ -194,7 +194,7 @@ class UserController extends \Controller {
         if(Auth::user()->can('edit', $user)) {
 
             // Grab all the Input
-            $table_config = Config::get('auth::user table');
+            $table_config = Config::get('auth::user_table');
             $email = Input::get('email');
             $extra_fields = $table_config['extra fields'];
             $password = Input::get('password');

@@ -46,7 +46,7 @@ class LoginController extends \Controller {
     public function login() {
         $response = null;
 
-        $identifier_field = Config::get('auth::user table.login through field');
+        $identifier_field = Config::get('auth::user_table.login_through_field');
         $password_field = 'password';
 
 
@@ -76,7 +76,7 @@ class LoginController extends \Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout() {
-        $identifier_field = Config::get('auth::user table.login through field');
+        $identifier_field = Config::get('auth::user_table.login_through_field');
         $username = Auth::user()->$identifier_field;
         Auth::logout();
         return Redirect::route('auth.login')->with('success', trans('auth::user.logout success', ['user' => $username]) );

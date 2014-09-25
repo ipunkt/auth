@@ -39,9 +39,9 @@ class CreateSimpleauthUsersTable extends Migration {
                 }
             }
             $table->string('password')->nullable();
-            $table->string('remember_token')->nullable();
+            $table->string('remember_token')->nul_able();
             $table->boolean('force_password_reset')->default(false);
-            $table->boolean('enabled')->default(true);
+            $table->boolean('enabled')->default(t_ue);
 			$table->timestamps();
 		});
 	}

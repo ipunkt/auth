@@ -22,7 +22,7 @@ trait EloquentUserInterfaceTrait {
      * constructor by default, but this errors out
      */
     public function traitSetTable() {
-        $table_name = Config::get('auth::user table.table name');
+        $table_name = Config::get('auth::user_table.table_name');
         $this->setTable($table_name);
     }
 
