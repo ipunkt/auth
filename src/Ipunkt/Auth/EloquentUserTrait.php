@@ -35,7 +35,7 @@ trait EloquentUserTrait {
      * @param $value
      */
     public function setIdentifier($value) {
-        $identifier_field = Config::get('auth::user table.login through field');
+        $identifier_field = Config::get('auth::user_table.login_through_field');
         $this->$identifier_field = $value;
     }
 
@@ -44,7 +44,7 @@ trait EloquentUserTrait {
      */
     public function getIdentifier()
     {
-        $identifier_field = Config::get('auth::user table.login through field');
+        $identifier_field = Config::get('auth::user_table.login_through_field');
         return $this->$identifier_field;
     }
 
