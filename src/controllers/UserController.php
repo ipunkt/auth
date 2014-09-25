@@ -17,6 +17,7 @@ use Illuminate\Support\MessageBag;
 use Input;
 use Ipunkt\Auth\models\UserInterface;
 use Ipunkt\Auth\Repositories\RepositoryInterface;
+use Ipunkt\SocialAuth\SocialAuth;
 use Redirect;
 use Session;
 use Validator;
@@ -67,8 +68,10 @@ class UserController extends \Controller {
         $variables = [];
         $variables['extends'] = Config::get('auth::view.extends');
         $variables['extra_fields'] = Config::get('auth::user_table.extra_fields');
-        if(Session::has('registerInfo'))
-            $variables['registerInfo'] = Session::get('registerInfo');
+	    if(class_exists('Ipunkt\SocialAuth\SocialAuth')) {
+			if(\Ipunkt\SocialAuth\SocialAuth::hasRegistration())
+				$variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration();
+	    }
 
         // Renew registerInfo in the session for the store call.
         Session::reflash();
@@ -112,11 +115,13 @@ class UserController extends \Controller {
          * OR if a social-auth user is attached but does not allow logging in through it
          * -> require a password to be set
          */
-        if(!Session::has('registerInfo') || !Session::get('registerInfo')->providesLogin()) {
-            $rules[$password_field] = 'required';
-            $rules[$password_confirm_field] = 'required|same:'.$password_field;
-
-        }
+	    if(!class_exists('Ipunkt\SocialAuth\SocialAuth')
+		    || ! \Ipunkt\SocialAuth\SocialAuth::hasRegistration()
+		    || ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() )
+	    ) {
+		    $rules[$password_field] = 'required';
+		    $rules[$password_confirm_field] = 'required|same:'.$password_field;
+	    }
 
         foreach(Config::get('auth::user_table.extra_fields') as $extra_field) {
             $field_name = $extra_field['name'];

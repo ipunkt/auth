@@ -10,6 +10,7 @@ namespace Ipunkt\Auth\PermissionChecker;
 
 
 use Illuminate\Auth\UserInterface;
+use Ipunkt\Permissions\CanInterface;
 use Ipunkt\Permissions\PermissionChecker\PermissionChecker;
 
 /**
@@ -22,15 +23,16 @@ use Ipunkt\Permissions\PermissionChecker\PermissionChecker;
  * anything else will return false
  */
 class UserPermissionChecker extends PermissionChecker {
-    /**
-     * Check if the given User has permission to do action on this objects assigned model
-     *
-     * @param UserInterface $object
-     * @param string $action
-     * @return boolean
-     */
-    public function checkPermission(UserInterface $object, $action) {
-        return $this->getEntity()->getId() == $object->getId();
-    }
+	/**
+	 * Check if the given User has permission to do action on this objects assigned model
+	 *
+	 * @param \Ipunkt\Permissions\PermissionChecker\UserInterface $object
+	 * @param string $action
+	 * @return boolean
+	 */
+	function checkPermission(CanInterface $object, $action) {
+		return $this->getEntity()->getId() == $object->getId();
+	}
+
 
 } 
