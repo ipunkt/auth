@@ -201,7 +201,7 @@ class UserController extends \Controller {
             // Grab all the Input
             $table_config = Config::get('auth::user_table');
             $email = Input::get('email');
-            $extra_fields = $table_config['extra fields'];
+            $extra_fields = $table_config['extra_fields'];
             $password = Input::get('password');
             $old_password = Input::get('old_password');
             $password_confirm = Input::get('password_confirmation');
