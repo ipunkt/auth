@@ -14,7 +14,6 @@ use Config;
 use Controller;
 use Illuminate\Support\MessageBag;
 use Input;
-use Ipunkt\Simpleauth\models\UserInterface;
 use Lang;
 use Password;
 use Redirect;
