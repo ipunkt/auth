@@ -117,8 +117,8 @@ class UserController extends \Controller {
          */
 	    if(!class_exists('Ipunkt\SocialAuth\SocialAuth')
 		    || ! \Ipunkt\SocialAuth\SocialAuth::hasRegistration()
-		    || ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() )
-	    ) {
+		    || ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() ) {
+		    
 		    $rules[$password_field] = 'required';
 		    $rules[$password_confirm_field] = 'required|same:'.$password_field;
 	    }
