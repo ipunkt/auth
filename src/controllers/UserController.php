@@ -54,7 +54,6 @@ class UserController extends \Controller {
         $variables['users'] = $users;
         $variables['extends'] = Config::get('auth::view.extends');
 
-
         return View::make('auth::user.index', $variables);
     }
 

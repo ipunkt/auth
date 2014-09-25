@@ -128,7 +128,7 @@ trait EloquentUserTrait {
      * @return bool
      */
     public function validate() {
-        $table_config = Config::get('auth::user table');
+        $table_config = Config::get('auth::user_table');
 
         $rules = [];
         $rules['email'] = 'required|email';
@@ -136,7 +136,7 @@ trait EloquentUserTrait {
         $data = [];
         $data['email'] = $this->getEmail();
 
-        foreach($table_config['extra fields'] as $extra_field) {
+        foreach($table_config['extra_fields'] as $extra_field) {
             $field_name = $extra_field['name'];
             $rules[ $field_name ] = $extra_field['validation_rules'];
             $data[ $field_name ] = $this->getExtra($field_name);
