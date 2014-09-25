@@ -120,7 +120,7 @@ class UserController extends \Controller {
 
         foreach(Config::get('auth::user_table.extra_fields') as $extra_field) {
             $field_name = $extra_field['name'];
-            $rules[$field_name] = $extra_field['validation rules'];
+            $rules[$field_name] = $extra_field['validation_rules'];
             $new_user->setExtra($field_name, Input::get($field_name));
         }
 

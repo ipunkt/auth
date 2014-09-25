@@ -35,7 +35,7 @@ return [
          * Required fields:
          * name: Database/Form/Access name
          * form type: The name of the Formbuilder function which will be called to allow changing this field
-         * validation rules: Rules as passed to the validator
+         * validation_rules: Rules as passed to the validator
          *
          * Migration fields
          * These are optional if you specify 'do not migrate' => true

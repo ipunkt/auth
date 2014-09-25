@@ -138,7 +138,7 @@ trait EloquentUserTrait {
 
         foreach($table_config['extra fields'] as $extra_field) {
             $field_name = $extra_field['name'];
-            $rules[ $field_name ] = $extra_field['validation rules'];
+            $rules[ $field_name ] = $extra_field['validation_rules'];
             $data[ $field_name ] = $this->getExtra($field_name);
         }
 
