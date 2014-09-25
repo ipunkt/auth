@@ -14,21 +14,21 @@ return [
      * default is true to allow the package workflow of
      *  install -> migrate -> works with sane defaults.
      */
-    'set usermodel' => true,
-    'set repository' => true,
-    'set permission checker' => true,
+    'set_usermodel' => true,
+    'set_repository' => true,
+    'set_permission_checker' => true,
 
     /**
      * set config value auth.reminder.email to auth::reminder/email?
      */
-    'set reminder' => true,
+    'set_reminder' => true,
 
-    'user table' => [
-        'table name' => 'simpleauth_users',
+    'user_table' => [
+        'table_name' => 'users',
 
         // This is the field which will be looked for when authenticating.
         // setting this to a field that does not exist in the database will crash the package.
-        'login through field' => 'email',
+        'login_through_field' => 'email',
 
         /* Extra fields for simpleauth to manage
          * ATTENTION: removing a field which is not nullable from the extra fields AFTER migrating will break registering
@@ -49,11 +49,11 @@ return [
          * not during register: Field will not apear during registration
          *
          */
-        'extra fields' => [
-                /*['name' => 'testfield', 'database type' => 'string', 'form type' => 'text', 'validation rules' => 'min:5',
+        'extra_fields' => [
+                /*['name' => 'testfield', 'database_type' => 'string', 'form_type' => 'text', 'validation_rules' => 'min:5',
                     'not during register' => true],
-                ['name' => 'username', 'database type' => 'string', 'form type' => 'text', 'validation rules' => 'required|min:5',
-                    'not null' => true, 'unique' => true]*/
+                ['name' => 'username', 'database_type' => 'string', 'form_type' => 'text', 'validation_rules' => 'required|min:5',
+                    'not_null' => true, 'unique' => true]*/
             ]
     ],
 
