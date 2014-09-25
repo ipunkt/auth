@@ -13,12 +13,12 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Ipunkt\Auth\DummyUserPermissionTrait;
 use Ipunkt\Auth\EloquentUserTrait;
 use Ipunkt\Permissions\HasPermissionTrait;
-use Ipunkt\Permissions\UserPermissionTrait;
+use Ipunkt\Permissions\CanTrait;
 
 class EloquentUser extends \Eloquent implements UserInterface {
     use EloquentUserTrait;
     use DummyUserPermissionTrait;
-    use UserPermissionTrait;
+    use CanTrait;
     use HasPermissionTrait;
 
     protected $permission_checker_path = 'Ipunkt\Auth\PermissionChecker\UserPermissionChecker';

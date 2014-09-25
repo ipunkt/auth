@@ -11,7 +11,7 @@ namespace Ipunkt\Auth\models;
 
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Ipunkt\Permissions\HasPermissionInterface;
-use Ipunkt\Permissions\UserPermissionInterface;
+use Ipunkt\Permissions\CanInterface;
 
 /**
  * Interface UserInterface
@@ -20,7 +20,7 @@ use Ipunkt\Permissions\UserPermissionInterface;
  * This interface takes care of all the interaction between register / edit / login interface and the user model.
  * In Eloquent models these calls translate into simple return $this->variable / $this->variable = $value
  */
-interface UserInterface extends \Illuminate\Auth\UserInterface, RemindableInterface, UserPermissionInterface,
+interface UserInterface extends \Illuminate\Auth\UserInterface, RemindableInterface, CanInterface,
                                 HasPermissionInterface {
 
     /**
