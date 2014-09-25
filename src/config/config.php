@@ -16,7 +16,6 @@ return [
      */
     'set_usermodel' => true,
     'set_repository' => true,
-    'set_permission_checker' => true,
 
     /**
      * set config value auth.reminder.email to auth::reminder/email?

@@ -27,20 +27,11 @@ class AuthServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('ipunkt/auth');
-        if(Config::get('auth::set usermodel') == true) {
+        if(Config::get('auth::set_usermodel') == true) {
             Config::set('auth.model', 'Ipunkt\Auth\models\EloquentUser');
         }
-        if(Config::get('auth::set repository') == true)
+        if(Config::get('auth::set_repository') == true)
             App::bind('Ipunkt\Auth\Repositories\RepositoryInterface', 'Ipunkt\Auth\Repositories\EloquentRepository');
-
-        /*
-         * FIXME: having this overwritten in permissions causes 'rebound' events to fire, which attempt to make a new
-         *      PermissionChecker without setting an associated object.
-         */
-        /*if(Config::get('auth::set permission checker') == true)
-            App::bind('Ipunkt\Auth\PermissionChecker\PermissionCheckerInterface',
-                    'Ipunkt\Auth\PermissionChecker\DummyPermissionChecker'
-            );*/
 	}
 
 	/**
