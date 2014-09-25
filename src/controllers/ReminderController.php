@@ -95,7 +95,7 @@ class ReminderController extends Controller {
         /** @var $changed_user UserInterface */
         $changed_user = null;
 
-        $result = Password::reset($credentials, function($user, $password) use ($changed_user) {
+        $result = Password::reset($credentials, function($user, $password) use (&$changed_user) {
             $changed_user = $user;
             $user->setPassword($password);
 
