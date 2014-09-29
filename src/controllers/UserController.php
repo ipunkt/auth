@@ -68,8 +68,8 @@ class UserController extends \Controller {
         $variables['extends'] = Config::get('auth::view.extends');
         $variables['extra_fields'] = Config::get('auth::user_table.extra_fields');
 	    if(class_exists('Ipunkt\SocialAuth\SocialAuth')) {
-			if(\Ipunkt\SocialAuth\SocialAuth::hasRegisteration())
-				$variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegisteration();
+			if(\Ipunkt\SocialAuth\SocialAuth::hasRegistration())
+				$variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration();
 	    }
 
         // Renew registerInfo in the session for the store call.
