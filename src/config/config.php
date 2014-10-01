@@ -17,6 +17,16 @@ return [
     'set_usermodel' => true,
     'set_repository' => true,
 
+	/**
+	 * This is prepended to all pathes in this packages routes.php
+	 * the prefix may not end with a slash
+	 * Also note that setting this will mean /login becomes $route_prefix.'/login', thus the default 'auth' filter wont
+	 * redirect to it anymore
+	 * 
+	 * example: 'route_prefix' => 'auth',
+	 */
+	'route_prefix' => '',
+
     /**
      * set config value auth.reminder.email to auth::reminder/email?
      */

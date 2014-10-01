@@ -33,37 +33,37 @@ Route::bind('user', function($id) {
 });
 
 
-Route::when('auth/user/*/edit', 'auth');
+Route::when(Config::get('auth::route_prefix').'/user/*/edit', 'auth');
 
 /**
  * Login routes
  */
-Route::get('auth/login', ['as' => 'auth.login', 'uses' => 'Ipunkt\Auth\LoginController@loginForm', 'before' => 'guest']);
-Route::post('auth/login', ['as' => 'auth.perform_login', 'uses' => 'Ipunkt\Auth\LoginController@login', 'before' => 'guest']);
+Route::get(Config::get('auth::route_prefix').'/login', ['as' => 'auth.login', 'uses' => 'Ipunkt\Auth\LoginController@loginForm', 'before' => 'guest']);
+Route::post(Config::get('auth::route_prefix').'/login', ['as' => 'auth.perform_login', 'uses' => 'Ipunkt\Auth\LoginController@login', 'before' => 'guest']);
 
 /**
  * logout routes
  */
-Route::get('auth/logout', ['as' => 'auth.logout', 'uses' => 'Ipunkt\Auth\LoginController@logout', 'before' => 'auth']);
+Route::get(Config::get('auth::route_prefix').'/logout', ['as' => 'auth.logout', 'uses' => 'Ipunkt\Auth\LoginController@logout', 'before' => 'auth']);
 
 /**
  * Password reminder routes
  */
-Route::get('auth/remind', [
+Route::get(Config::get('auth::route_prefix').'/remind', [
     'uses' => 'Ipunkt\Auth\ReminderController@request',
     'as' => 'auth.remind',
     'before' => 'guest']);
-Route::post('auth/remind', [
+Route::post(Config::get('auth::route_prefix').'/remind', [
     'uses' => 'Ipunkt\Auth\ReminderController@perform',
     'as' => 'auth.perform_remind',
     'before' => 'guest']);
-Route::get('auth/reset/{token}', [
+Route::get(Config::get('auth::route_prefix').'/reset/{token}', [
     'uses' => 'Ipunkt\Auth\ReminderController@reset',
     'as' => 'auth.reset_password',
     'before' => 'guest']);
-Route::post('auth/perform_reset', [
+Route::post(Config::get('auth::route_prefix').'/perform_reset', [
     'uses' => 'Ipunkt\Auth\ReminderController@performReset',
     'as' => 'auth.perform_reset_password',
     'before' => 'guest']);
 
-Route::resource('auth/user', 'Ipunkt\Auth\UserController');
+Route::resource(Config::get('auth::route_prefix').'/user', 'Ipunkt\Auth\UserController');
