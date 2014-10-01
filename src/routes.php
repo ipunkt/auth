@@ -66,4 +66,13 @@ Route::post(Config::get('auth::route_prefix').'/perform_reset', [
     'as' => 'auth.perform_reset_password',
     'before' => 'guest']);
 
-Route::resource(Config::get('auth::route_prefix').'/user', 'Ipunkt\Auth\UserController');
+Route::resource(Config::get('auth::route_prefix').'/user', 'Ipunkt\Auth\UserController', [
+	'names' => [
+		'index' => 'auth.user.index',
+		'create' => 'auth.user.create',
+		'store' => 'auth.user.store',
+		'edit' => 'auth.user.edit',
+		'update' => 'auth.user.update',
+		'destroy' => 'auth.user.destroy',
+	]
+]);
