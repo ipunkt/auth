@@ -24,14 +24,14 @@ class AuthServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function boot()
-	{
+	public function boot() {
 		$this->package('ipunkt/auth');
         if(Config::get('auth::set_usermodel') == true) {
             Config::set('auth.model', 'Ipunkt\Auth\models\EloquentUser');
         }
         if(Config::get('auth::set_repository') == true)
             App::bind('Ipunkt\Auth\Repositories\RepositoryInterface', 'Ipunkt\Auth\Repositories\EloquentRepository');
+		require_once __DIR__ . "/../../routes.php";
 	}
 
 	/**
@@ -39,10 +39,7 @@ class AuthServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
-        require_once __DIR__ . "/../../routes.php";
-		//
+	public function register() {
 	}
 
 	/**
