@@ -25,46 +25,49 @@ Route::filter('password_reset_flag', function($route) {
  */
 Route::when('*', 'password_reset_flag');
 
-Route::when(Config::get('auth::route_prefix').'/user/*/edit', 'auth');
+Route::group(['prefix' => Config::get('auth::route_prefix')], function() {
+	Route::when('/user/*/edit', 'auth');
 
-/**
- * Login routes
- */
-Route::get(Config::get('auth::route_prefix').'/login', ['as' => 'auth.login', 'uses' => 'Ipunkt\Auth\LoginController@loginForm', 'before' => 'guest']);
-Route::post(Config::get('auth::route_prefix').'/login', ['as' => 'auth.perform_login', 'uses' => 'Ipunkt\Auth\LoginController@login', 'before' => 'guest']);
+	/**
+	 * Login routes
+	 */
+	Route::get('/login', ['as' => 'auth.login', 'uses' => 'Ipunkt\Auth\LoginController@loginForm', 'before' => 'guest']);
+	Route::post('/login', ['as' => 'auth.perform_login', 'uses' => 'Ipunkt\Auth\LoginController@login', 'before' => 'guest']);
 
-/**
- * logout routes
- */
-Route::get(Config::get('auth::route_prefix').'/logout', ['as' => 'auth.logout', 'uses' => 'Ipunkt\Auth\LoginController@logout', 'before' => 'auth']);
+	/**
+	 * logout routes
+	 */
+	Route::get('/logout', ['as' => 'auth.logout', 'uses' => 'Ipunkt\Auth\LoginController@logout', 'before' => 'auth']);
 
-/**
- * Password reminder routes
- */
-Route::get(Config::get('auth::route_prefix').'/remind', [
-    'uses' => 'Ipunkt\Auth\ReminderController@request',
-    'as' => 'auth.remind',
-    'before' => 'guest']);
-Route::post(Config::get('auth::route_prefix').'/remind', [
-    'uses' => 'Ipunkt\Auth\ReminderController@perform',
-    'as' => 'auth.perform_remind',
-    'before' => 'guest']);
-Route::get(Config::get('auth::route_prefix').'/reset/{token}', [
-    'uses' => 'Ipunkt\Auth\ReminderController@reset',
-    'as' => 'auth.reset_password',
-    'before' => 'guest']);
-Route::post(Config::get('auth::route_prefix').'/perform_reset', [
-    'uses' => 'Ipunkt\Auth\ReminderController@performReset',
-    'as' => 'auth.perform_reset_password',
-    'before' => 'guest']);
+	/**
+	 * Password reminder routes
+	 */
+	Route::get('/remind', [
+		'uses' => 'Ipunkt\Auth\ReminderController@request',
+		'as' => 'auth.remind',
+		'before' => 'guest']);
+	Route::post('/remind', [
+		'uses' => 'Ipunkt\Auth\ReminderController@perform',
+		'as' => 'auth.perform_remind',
+		'before' => 'guest']);
+	Route::get('/reset/{token}', [
+		'uses' => 'Ipunkt\Auth\ReminderController@reset',
+		'as' => 'auth.reset_password',
+		'before' => 'guest']);
+	Route::post('/perform_reset', [
+		'uses' => 'Ipunkt\Auth\ReminderController@performReset',
+		'as' => 'auth.perform_reset_password',
+		'before' => 'guest']);
 
-Route::resource(Config::get('auth::route_prefix').'/user', 'Ipunkt\Auth\UserController', [
-	'names' => [
-		'index' => 'auth.user.index',
-		'create' => 'auth.user.create',
-		'store' => 'auth.user.store',
-		'edit' => 'auth.user.edit',
-		'update' => 'auth.user.update',
-		'destroy' => 'auth.user.destroy',
-	]
-]);
+	Route::resource('/user', 'Ipunkt\Auth\UserController', [
+		'names' => [
+			'index' => 'auth.user.index',
+			'create' => 'auth.user.create',
+			'store' => 'auth.user.store',
+			'edit' => 'auth.user.edit',
+			'update' => 'auth.user.update',
+			'destroy' => 'auth.user.destroy',
+		]
+	]);
+});
+
