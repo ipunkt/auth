@@ -9,8 +9,6 @@
 namespace Ipunkt\Auth\Repositories;
 
 
-use Ipunkt\Auth\models\UserInterface;
-
 class EloquentRepository implements RepositoryInterface {
     use EloquentRepositoryTrait;
 }

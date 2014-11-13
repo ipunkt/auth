@@ -9,14 +9,19 @@ return [
     /**
      * set config value auth.Model to \Ipunkt\Auth\EloquentModel?
      *
-     * if set to true then the service provider will Config::set('auth.model', 'Ipunkt\Auth\EloquentModel').
-     *
-     * default is true to allow the package workflow of
-     *  install -> migrate -> works with sane defaults.
+     * Leave this at true to use the User model provided in this package for your laravel authentication
+     * 
+     * Set this to false if you bring your own User model.
      */
     'set_usermodel' => true,
     
 	/**
+	 * Leave this at true if you wish to use the repository provided in this package.
+	 * The default repository builds models based on the auth.model config value
+	 * 
+	 * Set this to false if you bring your own Repository, please make sure it binds to and implements
+	 * Ipunkt\Auth\Repositories\RepositoryInterface
+	 * 
 	 * shall we bind our repository to Ipunkt\Auth\Repositories\RepositoryInterface or do you bring your own?
 	 */
     'set_repository' => true,
@@ -32,6 +37,10 @@ return [
 	'route_prefix' => '',
 
     /**
+     * Leave this at true to use the packages internal email reminder view.
+     * 
+     * Set to false and set the config value auth.reminder.email to your own view to send custom reminder emails
+     * 
      * set config value auth.reminder.email to auth::reminder/email?
      */
     'set_reminder' => true,
