@@ -25,14 +25,6 @@ Route::filter('password_reset_flag', function($route) {
  */
 Route::when('*', 'password_reset_flag');
 
-/**
- * Bind the user variable to an actual user object
- */
-Route::bind('user', function($id) {
-    return \Ipunkt\Auth\Fascades\Repository::findorFail($id);
-});
-
-
 Route::when(Config::get('auth::route_prefix').'/user/*/edit', 'auth');
 
 /**

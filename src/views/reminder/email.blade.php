@@ -8,7 +8,7 @@
 
 <div>
     {{ trans('auth::reminders.email.address') }}<br>
-    {{ trans('auth::reminders.email.text', ['site' => 'temp', 'link' => URL::to('auth/reset', $token) ]) }}
+    {{ trans('auth::reminders.email.text', ['site' => 'temp', 'link' => route('auth.reset_password', $token) ]) }}
 </div>
 </body>
 </html>
