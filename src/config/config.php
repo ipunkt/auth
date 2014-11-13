@@ -9,18 +9,22 @@ return [
     /**
      * set config value auth.Model to \Ipunkt\Auth\EloquentModel?
      *
-     * if set to true then the service provider will Config::set('auth.Model', 'Ipunkt\Auth\EloquentModel').
+     * if set to true then the service provider will Config::set('auth.model', 'Ipunkt\Auth\EloquentModel').
      *
      * default is true to allow the package workflow of
      *  install -> migrate -> works with sane defaults.
      */
     'set_usermodel' => true,
+    
+	/**
+	 * shall we bind our repository to Ipunkt\Auth\Repositories\RepositoryInterface or do you bring your own?
+	 */
     'set_repository' => true,
 
 	/**
-	 * This is prepended to all pathes in this packages routes.php
+	 * This is prepended to all paths in this packages routes.php
 	 * the prefix may not end with a slash
-	 * Also note that setting this will mean /login becomes $route_prefix.'/login', thus the default 'auth' filter wont
+	 * Also note that setting this will mean /login becomes $route_prefix.'/login', thus the default 'auth' filter won't
 	 * redirect to it anymore
 	 * 
 	 * example: 'route_prefix' => 'auth',
@@ -35,7 +39,7 @@ return [
     'user_table' => [
         'table_name' => 'users',
 
-        // This is the field which will be looked for when authenticating.
+        // This is the field name for authenticating lookup.
         // setting this to a field that does not exist in the database will crash the package.
         'login_through_field' => 'email',
 
