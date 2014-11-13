@@ -23,7 +23,7 @@ Add to your composer.json following lines
     to your service provider list.  
 - Publish the config by doing
 
-        `php aristan config:publish ipunkt/auth`
+        `php artisan config:publish ipunkt/auth`
 	
 - Edit the 'user_table' variable to suit your needs
 - Migrate the user table by doing
