@@ -64,6 +64,7 @@ Route::group(['prefix' => Config::get('auth::route_prefix')], function() {
 			'index' => 'auth.user.index',
 			'create' => 'auth.user.create',
 			'store' => 'auth.user.store',
+			'show' => 'auth.user.show',
 			'edit' => 'auth.user.edit',
 			'update' => 'auth.user.update',
 			'destroy' => 'auth.user.destroy',
