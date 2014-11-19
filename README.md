@@ -1,3 +1,4 @@
+[![Latest Stable Version](https://poser.pugx.org/ipunkt/auth/v/stable.svg)](https://packagist.org/packages/ipunkt/auth) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/auth/v/unstable.svg)](https://packagist.org/packages/ipunkt/auth) [![License](https://poser.pugx.org/ipunkt/auth/license.svg)](https://packagist.org/packages/ipunkt/auth) [![Total Downloads](https://poser.pugx.org/ipunkt/auth/downloads.svg)](https://packagist.org/packages/ipunkt/auth)
 ipunkt/auth
 ===========
 This package provides a user model and simple login, remind and register views plus.  
@@ -11,7 +12,7 @@ use environment.
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/auth": "dev-master"
+		"ipunkt/auth": "1.*"
 	}
 
 ## Configuration
