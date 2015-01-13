@@ -6,12 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class AuthServiceProvider
- * @package Ipunkt\Auth
  *
  * Load routes and set auth.model to Ipunkt\Auth\EloquentUser if configured
+ *
+ * @package Ipunkt\Auth
  */
-class AuthServiceProvider extends ServiceProvider {
-
+class AuthServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -24,13 +25,16 @@ class AuthServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function boot() {
+	public function boot()
+	{
 		$this->package('ipunkt/auth');
-        if(Config::get('auth::set_usermodel') == true) {
-            Config::set('auth.model', 'Ipunkt\Auth\models\EloquentUser');
-        }
-        if(Config::get('auth::set_repository') == true)
-            App::bind('Ipunkt\Auth\Repositories\RepositoryInterface', 'Ipunkt\Auth\Repositories\EloquentRepository');
+
+		if (Config::get('auth::set_usermodel', false) == true)
+			Config::set('auth.model', 'Ipunkt\Auth\models\EloquentUser');
+
+		if (Config::get('auth::set_repository', false) == true)
+			App::bind('Ipunkt\Auth\Repositories\RepositoryInterface', 'Ipunkt\Auth\Repositories\EloquentRepository');
+
 		require_once __DIR__ . "/../../routes.php";
 	}
 
@@ -39,7 +43,8 @@ class AuthServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register() {
+	public function register()
+	{
 	}
 
 	/**
@@ -51,5 +56,4 @@ class AuthServiceProvider extends ServiceProvider {
 	{
 		return array();
 	}
-
 }
