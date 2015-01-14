@@ -45,4 +45,17 @@ return [
      * set config value auth.reminder.email to auth::reminder/email?
      */
     'set_reminder' => true,
+
+    /**
+     * This decides which routes the UserController should publish
+     */
+    'routes' => [
+        'index',
+        'create',
+        'store',
+        'show',
+        'edit',
+        'update',
+        'destroy'
+    ]
 ];
