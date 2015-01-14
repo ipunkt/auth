@@ -53,7 +53,7 @@ class UserController extends \Controller {
         $response = null;
         $user = Auth::user();
         
-        if( Auth::get('auth::publish_user_index') 
+        if( Config::get('auth::publish_user_index') 
                 || ($user !== null && $user->can('index', $user))
         ) {
             
