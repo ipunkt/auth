@@ -25,13 +25,18 @@ use Ipunkt\Permissions\PermissionChecker\PermissionChecker;
 class UserPermissionChecker extends PermissionChecker {
 	/**
 	 * Check if the given User has permission to do action on this objects assigned model
-	 *
-	 * @param \Ipunkt\Permissions\PermissionChecker\UserInterface $object
+	 * 
+	 * @param CanInterface $object
 	 * @param string $action
-	 * @return boolean
+	 * @return bool
 	 */
 	function checkPermission(CanInterface $object, $action) {
-		return $this->getEntity()->getId() == $object->getId();
+		$permission = false;
+		
+		if(in_array($action, Config::get('auth::user_actions'), []))
+			$permission = $this->getEntity()->getId() == $object->getId();
+		
+		return $permission;
 	}
 
 

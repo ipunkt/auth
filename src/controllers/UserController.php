@@ -50,11 +50,26 @@ class UserController extends \Controller {
     public function index() {
         $users = $this->repository->all();
 
-        $variables = [];
-        $variables['users'] = $users;
-        $variables['extends'] = Config::get('auth::view.extends');
+        $response = null;
+        $user = Auth::user();
+        
+        if( Auth::get('auth::publish_user_index') 
+                || ($user !== null && $user->can('index', $user))
+        ) {
+            
+			$variables = [];
+			$variables['users'] = $users;
+			$variables['extends'] = Config::get('auth::view.extends');
+            
+            $response = View::make('auth::user.index', $variables);
+            
+        } else {
+            $response = App::abort(403);
+        }
+        
+        
 
-        return View::make('auth::user.index', $variables);
+        return $response;
     }
 
     /**

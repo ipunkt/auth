@@ -47,15 +47,22 @@ return [
     'set_reminder' => true,
 
     /**
-     * This decides which routes the UserController should publish
+     * Allow public access to the user index page
      */
-    'routes' => [
-        'index',
-        'create',
-        'store',
-        'show',
-        'edit',
-        'update',
-        'destroy'
-    ]
+    'publish_user_index' => false,
+
+    /**
+     * This decides how the UserPermissionChecker gives permissions.
+     * Any action listed here is treated as being on a user-by-user basis and the user is thus allowed to perform them
+     * on their own user
+     * 
+     * Possible Actions:
+     * - index      List all users. This will allow logged-in users to view the index of all users.
+     * - edit       Edit your own User data.
+     * - delete     Delete your own User.
+     * - disable    Disable your own account. While possible to set this it is currently disabled in the code
+     */
+    'user_actions' => [
+        'edit'
+    ],
 ];
