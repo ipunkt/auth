@@ -10,6 +10,7 @@ namespace Ipunkt\Auth\PermissionChecker;
 
 
 use Illuminate\Auth\UserInterface;
+use Illuminate\Support\Facades\Config;
 use Ipunkt\Permissions\CanInterface;
 use Ipunkt\Permissions\PermissionChecker\PermissionChecker;
 
