@@ -34,7 +34,7 @@ class UserPermissionChecker extends PermissionChecker {
 	function checkPermission(CanInterface $object, $action) {
 		$permission = false;
 		
-		if(in_array($action, Config::get('auth::user_actions'), []))
+		if(in_array($action, Config::get('auth::user_actions', [])))
 			$permission = $this->getEntity()->getId() == $object->getId();
 		
 		return $permission;
