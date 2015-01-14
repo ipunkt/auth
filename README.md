@@ -39,19 +39,22 @@ Link your users to the `auth.logout` route to logout
 ### User index
 If you wish to publish a list of all users you can use to the auth.user.login route.
 There are 3 ways to decide access to this:
+
 - If you set the `publish_user_index` to `true` in this packages config then everyone will be able to view it.
 - Otherwise if a user is logged in, it will be asked for permission to `index` on itself `Auth::user()->can('index', Auth::user())`.
-        If you use the `PermissionChecker` which is included in this package then adding `index` to the `user_actions` array will grant access to all users
-        If you wish for a more complicated behaviour, simply bring your own `PermissionChecker` for your user model. See https://github.com/ipunkt/permissions for detail
+  - If you use the `PermissionChecker` which is included in this package then adding `index` to the `user_actions` array will grant access to all users
+  - If you wish for a more complicated behaviour, simply bring your own `PermissionChecker` for your user model. See [ipunkt/permissions](https://github.com/ipunkt/permissions) for detail
 - If you neither set `publish_user_index` nor allow `index` in your user models `PermissionChecker` then it will fail through `App::abort(403)`
 
 The default behaviour is to deny access.
 
 ### User edit
 To let your users edit a profile link them to the `auth.user.edit` route, with the user id / `$user->getKey()` as Parameter
-- This will ask the User model for `edit` permission
-        If you use the `PermissionChecker` which is included in this package then adding `edit` to the `user_actions` array will grant permission to edit the users _own_ profile
-	If you wish for a more complicated behaviour, simply bring your own `PermissionChecker` for your user model. See https://github.com/ipunkt/permissions for detail
+
+This will ask the User model for `edit` permission
+
+  - If you use the `PermissionChecker` which is included in this package then adding `edit` to the `user_actions` array will grant permission to edit the users _own_ profile
+  - If you wish for a more complicated behaviour, simply bring your own `PermissionChecker` for your user model. See [ipunkt/permissions](https://github.com/ipunkt/permissions) for detail
 
 The default behaviour is to allow editing permissions to the users own profile.
 
@@ -60,8 +63,9 @@ To let your users delete an account, link them to the `auth.user.delete` route, 
 Also if a user has permission to delete an account while viewing the `auth.user.edit` view of said account, a deletion link will be shown.
 
 This will ask the user model for `delete` permission
-        If you use the `PermissionChecker` which is included in this package then adding `delete` to the `user_actions` array will grant permission to edit the users _own_ profile
-	If you wish for a more complicated behaviour, simply bring your own `PermissionChecker` for your user model. See https://github.com/ipunkt/permissions for detail
+
+- If you use the `PermissionChecker` which is included in this package then adding `delete` to the `user_actions` array will grant permission to edit the users _own_ profile
+- If you wish for a more complicated behaviour, simply bring your own `PermissionChecker` for your user model. See [ipunkt/permissions](https://github.com/ipunkt/permissions) for detail
 
 The default behaviour is to to deny deletion permission
 
