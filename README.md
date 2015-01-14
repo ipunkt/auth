@@ -33,7 +33,7 @@ Add to your composer.json following lines
 
 ## Use
 
-Link your users to the `auth.login` route to login
+Link your users to the `auth.login` route to login  
 Link your users to the `auth.logout` route to logout
 
 ### User index
