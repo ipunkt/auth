@@ -32,6 +32,13 @@ class UserController extends \Controller {
     public function __construct(RepositoryInterface $repository) {
         $this->repository = $repository;
     }
+    
+    protected function getUser($userId) {
+        if($userId instanceof UserInterface)
+            return $userId;
+        
+        return $this->repository->findOrFail($userId);
+    }
 
     /**
      * Show a list of all users
@@ -163,10 +170,13 @@ class UserController extends \Controller {
     /**
      * Display the edit form for the user.
      *
-     * @param UserInterface $user
+     * @param $userId
      * @return \Illuminate\View\View
+     * @internal param UserInterface $user
      */
-    public function edit(UserInterface $user) {
+    public function edit($userId) {
+        $user = $this->getUser($userId);
+        
         $response = null;
         $extends = Config::get('auth::view.extends');
 
@@ -195,7 +205,9 @@ class UserController extends \Controller {
      * @param UserInterface $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserInterface $user) {
+    public function update($userId) {
+        $user = $this->getUser($userId);
+            
         // Make sure we have permission to update this user
         if(Auth::user()->can('edit', $user)) {
 
@@ -290,7 +302,9 @@ class UserController extends \Controller {
      * @param UserInterface $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(UserInterface $user) {
+    public function destroy($userId) {
+        $user = $this->getUser($userId);
+        
         $response = null;
         if(Auth::user()->can('delete', $user)) {
             $username = $user->getIdentifier();
