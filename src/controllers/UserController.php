@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * UserInterface: sven
- * Date: 15.05.14
- * Time: 11:50
- */
-
-namespace Ipunkt\Auth;
-
+<?php namespace Ipunkt\Auth;
 
 use Auth;
 use Config;
@@ -26,9 +17,8 @@ use View;
 
 /**
  * Class UserController
- * @package Ipunkt\Simpleauth
- *
- *
+ * 
+ * @package Ipunkt\Auth
  */
 class UserController extends \Controller {
     /**
@@ -121,7 +111,7 @@ class UserController extends \Controller {
         $new_user->setPassword( Input::get($password_field) );
 
         $rules = [
-            $email_field => 'required|email',
+        	$email_field => 'required|email',
         ];
 
         /**
@@ -130,13 +120,13 @@ class UserController extends \Controller {
          * OR if a social-auth user is attached but does not allow logging in through it
          * -> require a password to be set
          */
-	    if(!class_exists('Ipunkt\SocialAuth\SocialAuth')
-		    || ! \Ipunkt\SocialAuth\SocialAuth::hasRegistration()
-		    || ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() ) {
+	if(!class_exists('Ipunkt\SocialAuth\SocialAuth')
+		|| ! \Ipunkt\SocialAuth\SocialAuth::hasRegistration()
+		|| ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() ) {
 		    
-		    $rules[$password_field] = 'required';
-		    $rules[$password_confirm_field] = 'required|same:'.$password_field;
-	    }
+		$rules[$password_field] = 'required';
+		$rules[$password_confirm_field] = 'required|same:'.$password_field;
+	}
 
         foreach(Config::get('auth::user_table.extra_fields') as $extra_field) {
             $field_name = $extra_field['name'];
@@ -151,7 +141,6 @@ class UserController extends \Controller {
 
         if($validator->passes()) {
             if( $new_user->save() ) {
-
                 /**
                  * Triggers with ipunkt/social-auth
                  *
@@ -161,13 +150,12 @@ class UserController extends \Controller {
                 if(Session::has('registerInfo'))
                     Session::get('registerInfo')->success($new_user);
 
-                $response = Redirect::to(route('auth.login'))->with('success', 'user.register success');
+                $response = Redirect::to(route('auth.login'))->with('success', trans('auth::user.register success', ['user' => $new_user->email]));
             } else
-                $response = Redirect::back()->withErrors($new_user->validationErrors());
+            	$response = Redirect::back()->withErrors($new_user->validationErrors());
         } else {
-            $response = Redirect::back()->withInput()->withErrors($validator);
+        	$response = Redirect::back()->withInput()->withErrors($validator);
         }
-
 
         return $response;
     }
@@ -184,7 +172,6 @@ class UserController extends \Controller {
 
         //$permission = 'user.'.$user->getId().'.edit';
         if(Auth::user()->can("edit", $user)) {
-
             $variables = [];
             $variables['extends'] = $extends;
             $variables['user'] = $user;
@@ -198,7 +185,6 @@ class UserController extends \Controller {
                     ['action' => trans('auth::user.edit permission'), 'object'=> trans('auth::user.user')]));
             $response = Redirect::route('home')->withErrors($errors);
         }
-
 
         return $response;
     }
@@ -230,7 +216,6 @@ class UserController extends \Controller {
                 $user->setEmail($email);
                 $changes['email'] = 'user.email_changed';
             }
-
 
             // Test if password was updated properly
             $password_was_changed = (strlen($password) > 0);

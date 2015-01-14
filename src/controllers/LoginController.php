@@ -63,7 +63,7 @@ class LoginController extends \Controller {
             $response = Redirect::intended('/')->with('success');
         } else {
             $errors = new MessageBag();
-            $errors->add('message',  trans('form.login failed', ['username' => $credentials[$identifier_field]]) );
+            $errors->add('message',  trans('auth::form.login failed', ['username' => $credentials[$identifier_field]]) );
             $response = Redirect::back()->withInput()->withErrors($errors);
         }
 

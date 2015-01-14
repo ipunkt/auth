@@ -47,10 +47,10 @@
             {{ Form::submit(trans('auth::form.login'), ['class' => 'btn btn-success']) }}
         </div>
         <div class="col-sm-2 col-sm-offset-3 text-center">
-            <a href="{{ route('auth.remind') }}">{{ Form::button(trans('auth::form.forgotten'), ['class' => 'btn btn-info']) }}</a>
+            <a href="{{ route('auth.remind') }}" class="btn btn-info">{{ trans('auth::form.forgotten') }}</a>
         </div>
         <div class="col-sm-2 col-sm-offset-3 col-sm-pull-10">
-            <a href="{{ route('auth.user.create') }}">{{ Form::button(trans('auth::form.register'), ['class' => 'btn btn-primary']) }}</a>
+            <a href="{{ route('auth.user.create') }}" class="btn btn-primary">{{ trans('auth::form.register') }}</a>
         </div>
     </div>
     <div>

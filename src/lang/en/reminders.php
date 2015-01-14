@@ -7,8 +7,8 @@
  */
 return [
     'sent' => 'A reminder was sent to your email address.',
-    'user' => 'Error: User not fond.',
-    'success' => 'Password change was successful',
+    'user' => 'Error: User not found.',
+    'success' => 'Password change was successful.',
     'password' => 'Error changing password: Password does not match confirmation or is not long enough.',
     'email' => [
         'subject' => 'Request: Password reminder',
