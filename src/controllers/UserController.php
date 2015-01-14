@@ -13,6 +13,7 @@ use Auth;
 use Config;
 use Hash;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\MessageBag;
 use Input;
 use Ipunkt\Auth\models\UserInterface;
