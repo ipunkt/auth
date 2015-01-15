@@ -62,6 +62,8 @@ class UserRegisterCommandHandler implements CommandHandler {
 		
 		$this->raise(new UserWasCreated($newUser));
 		
+		$this->dispatchEventsFor($this);
+		
 		return $newUser;
 	}
 
