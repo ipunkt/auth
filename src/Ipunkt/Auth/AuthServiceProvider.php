@@ -2,8 +2,6 @@
 
 use App;
 use Config;
-use Illuminate\Config\Repository;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Ipunkt\Auth\Listeners\SingleOptInListener;
@@ -40,8 +38,8 @@ class AuthServiceProvider extends ServiceProvider
 	public function __construct(Application $app, Repository $config, Dispatcher $event) {
 	    parent::__construct($app);
 		
-		$this->config = $config;
-		$this->event = $event;
+		$this->config = $this->app->make( 'Illuminate\Config\Repository' );
+		$this->event = $this->app->make( 'Illuminate\Events\Dispatcher' );
 	}
 
 	/**
