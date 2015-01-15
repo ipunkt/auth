@@ -120,8 +120,11 @@ class UserController extends \Controller {
         }
         
         return $response;
-        
-        
+
+
+        /**
+         * Old code, to be integrated into the CommandBus version
+         */
         
         $model = Config::get('auth.model');
 
