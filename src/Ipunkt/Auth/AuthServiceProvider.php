@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
 	 * @param Repository $config
 	 * @param Dispatcher $event
 	 */
-	public function __construct(Application $app, Repository $config, Dispatcher $event) {
+	public function __construct(Application $app) {
 	    parent::__construct($app);
 		
 		$this->config = $this->app->make( 'Illuminate\Config\Repository' );
