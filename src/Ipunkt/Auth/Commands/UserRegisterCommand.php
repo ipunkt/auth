@@ -16,27 +16,26 @@ class UserRegisterCommand {
 	 */
 	public $extraFields;
 
-
 	/**
-	 * @var string
-	 */
-	public $identifier;
-
-	/**
-	 * @param $identifier
 	 * @param $email
 	 * @param $password
 	 * @param array $extraFields
 	 */
-	public function __construct($identifier, $email, $password, $extraFields = []) {
+	public function __construct($email, $password, $extraFields = []) {
 
 		$this->email = $email;
 		$this->password = $password;
 		$this->extraFields = $extraFields;
-		$this->identifier = $identifier;
 		
 	}
-
+	
+	public function getFieldValue($field) {
+		if(in_array($field, ['email', 'password']))
+			return $this->$field;
+		
+		return $this->extraFields[$field];
+	}
+	
 	/**
 	 * Returns the value of an extra field
 	 * 

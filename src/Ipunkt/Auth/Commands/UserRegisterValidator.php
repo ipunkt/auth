@@ -2,7 +2,7 @@
 
 use Illuminate\Config\Repository;
 use Ipunkt\Auth\Exceptions\ValidationFailedException;
-use Validator;
+use Illuminate\Validation\Factory as Validator;
 
 class UserRegisterValidator {
 	

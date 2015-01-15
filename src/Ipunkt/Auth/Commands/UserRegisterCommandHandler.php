@@ -14,7 +14,12 @@ class UserRegisterCommandHandler implements CommandHandler {
 	 * @var array
 	 */
 	protected $extraFields;
-	
+
+	/**
+	 * @var string
+	 */
+	protected $identifierFieldName;
+
 	/**
 	 * @var RepositoryInterface
 	 */
@@ -25,6 +30,7 @@ class UserRegisterCommandHandler implements CommandHandler {
 	 */
 	public function __construct(Repository $config, RepositoryInterface $userRepository) {
 		$this->extraFields = $config->get('auth::user_table.extra_fields');
+		$this->identifierFieldName = $config->get('auth::user_table.login_through_field');
 
 		$this->userRepository = $userRepository;
 	}
@@ -41,7 +47,7 @@ class UserRegisterCommandHandler implements CommandHandler {
 		
 		$newUser = $this->userRepository->create();
 		
-		$newUser->setIdentifier( $command->identifier );
+		$newUser->setIdentifier( $command->getFieldValue($this->identifierFieldName) );
 		$newUser->setEmail( strtolower($command->email) );
 		$newUser->setPassword( $command->password );
 		
