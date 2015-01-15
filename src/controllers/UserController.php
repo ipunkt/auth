@@ -7,9 +7,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\MessageBag;
 use Input;
+use Ipunkt\Auth\Exceptions\UserNotStoredException;
+use Ipunkt\Auth\Exceptions\ValidationFailedException;
 use Ipunkt\Auth\models\UserInterface;
 use Ipunkt\Auth\Repositories\RepositoryInterface;
 use Ipunkt\SocialAuth\SocialAuth;
+use Laracasts\Commander\CommanderTrait;
 use Redirect;
 use Session;
 use Validator;
@@ -21,6 +24,9 @@ use View;
  * @package Ipunkt\Auth
  */
 class UserController extends \Controller {
+    
+    use CommanderTrait;
+    
     /**
      * @var Repositories\RepositoryInterface
      */
@@ -102,6 +108,21 @@ class UserController extends \Controller {
      */
     public function store() {
         $response = null;
+        
+        try {
+			$newUser = $this->execute( 'Ipunkt\Auth\Commands\UserRegisterCommand' );
+            
+            $response = Redirect::to(route('auth.login'))->with('success', trans('auth::user.register success', ['user' => $newUser->email]));
+        } catch(ValidationFailedException $e) {
+            $response = Redirect::back()->withInput()->withErrors($e->getErrors());
+        } catch(UserNotStoredException $e) {
+            $response = Redirect::back()->withErrors(['email' => $e->getMessage()]);
+        }
+        
+        return $response;
+        
+        
+        
         $model = Config::get('auth.model');
 
         $identifier_field = Config::get('auth::user_table.login_through_field');

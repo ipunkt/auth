@@ -97,7 +97,7 @@ interface UserInterface extends \Illuminate\Auth\UserInterface, RemindableInterf
      * @return boolean True if the user was saved, False otherwise
      */
     /**
-     * @return mixed
+     * @return bool
      */
     public function save();
 
