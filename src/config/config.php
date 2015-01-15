@@ -52,6 +52,25 @@ return [
     'publish_user_index' => false,
 
     /**
+     * This decides how the registration behaves.
+     * There are 3 possible values
+     * 
+     * - single_opt_in
+     *      Upon completing the registration the user will be able to log in right away
+     * 
+     * - double_opt_in
+     *      Upon completing the registration the user will be inactive.
+     *      An email is sent to the e-mail-address he gave during registration with an activation link
+     *      Once this link is visited the user is able to log in
+     * 
+     * - custom
+     *      Delegate to a different package or your own implementation
+     *      
+     * 
+     */
+    'registration_model' => 'single_opt_in',
+
+    /**
      * This decides how the UserPermissionChecker gives permissions.
      * Any action listed here is treated as being on a user-by-user basis and the user is thus allowed to perform them
      * on their own user

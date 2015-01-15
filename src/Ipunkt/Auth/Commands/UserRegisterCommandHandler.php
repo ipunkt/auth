@@ -1,14 +1,18 @@
 <?php  namespace Ipunkt\Auth\Commands;
 
 use Illuminate\Config\Repository;
+use Ipunkt\Auth\Events\UserWasCreated;
+use Ipunkt\Auth\Events\UserWasRegistered;
 use Ipunkt\Auth\Exceptions\UserNotStoredException;
 use Ipunkt\Auth\models\UserInterface;
 use Ipunkt\Auth\Repositories\RepositoryInterface;
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;
+use Laracasts\Commander\Events\EventGenerator;
 
 class UserRegisterCommandHandler implements CommandHandler {
 	use DispatchableTrait;
+	use EventGenerator;
 
 	/**
 	 * @var array
@@ -56,8 +60,7 @@ class UserRegisterCommandHandler implements CommandHandler {
             $newUser->setExtra($fieldName, $command->getExtraFieldValue($fieldName));
         }
 		
-		if(! $this->userRepository->save($newUser) )
-			throw new UserNotStoredException($newUser);
+		$this->raise(new UserWasCreated($newUser));
 		
 		return $newUser;
 	}

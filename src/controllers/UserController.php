@@ -126,69 +126,19 @@ class UserController extends \Controller {
          * Old code, to be integrated into the CommandBus version
          */
         
-        $model = Config::get('auth.model');
-
-        $identifier_field = Config::get('auth::user_table.login_through_field');
-        $email_field = 'email';
-        $password_field = 'password';
-        $password_confirm_field = 'password_confirmation';
-
-        $new_user = new $model(Input::all());
-        /**
-         * @var UserInterface $new_user
-         */
-        $new_user->setIdentifier(Input::get($identifier_field));
-        $new_user->setEmail(strtolower( Input::get('email') ) );
-        $new_user->setPassword( Input::get($password_field) );
-
-        $rules = [
-        	$email_field => 'required|email',
-        ];
-
         /**
          * This code works with the ipunkt/social-auth package.
          * if no social-auth user is attached
          * OR if a social-auth user is attached but does not allow logging in through it
          * -> require a password to be set
          */
-	if(!class_exists('Ipunkt\SocialAuth\SocialAuth')
-		|| ! \Ipunkt\SocialAuth\SocialAuth::hasRegistration()
-		|| ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() ) {
-		    
-		$rules[$password_field] = 'required';
-		$rules[$password_confirm_field] = 'required|same:'.$password_field;
-	}
-
-        foreach(Config::get('auth::user_table.extra_fields') as $extra_field) {
-            $field_name = $extra_field['name'];
-            $rules[$field_name] = $extra_field['validation_rules'];
-            $new_user->setExtra($field_name, Input::get($field_name));
-        }
-
-        $validator = Validator::make(
-            Input::all(),
-            $rules
-        );
-
-        if($validator->passes()) {
-            if( $new_user->save() ) {
-                /**
-                 * Triggers with ipunkt/social-auth
-                 *
-                 * If a registerInfo was attached to this login process notify it that the use was successfuly created
-                 *  this will attach the social-auth user to the new user in the case of ipunkt/social-auth
-                 */
-                if(Session::has('registerInfo'))
-                    Session::get('registerInfo')->success($new_user);
-
-                $response = Redirect::to(route('auth.login'))->with('success', trans('auth::user.register success', ['user' => $new_user->email]));
-            } else
-            	$response = Redirect::back()->withErrors($new_user->validationErrors());
-        } else {
-        	$response = Redirect::back()->withInput()->withErrors($validator);
-        }
-
-        return $response;
+		if(!class_exists('Ipunkt\SocialAuth\SocialAuth')
+			|| ! \Ipunkt\SocialAuth\SocialAuth::hasRegistration()
+			|| ! $variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration()->providesLogin() ) {
+				
+			$rules[$password_field] = 'required';
+			$rules[$password_confirm_field] = 'required|same:'.$password_field;
+		}
     }
 
     /**

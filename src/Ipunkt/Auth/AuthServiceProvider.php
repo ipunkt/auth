@@ -2,7 +2,11 @@
 
 use App;
 use Config;
+use Illuminate\Config\Repository;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use Ipunkt\Auth\Listeners\SingleOptInListener;
 
 /**
  * Class AuthServiceProvider
@@ -19,6 +23,26 @@ class AuthServiceProvider extends ServiceProvider
 	 * @var bool
 	 */
 	protected $defer = false;
+	/**
+	 * @var Repository
+	 */
+	private $config;
+	/**
+	 * @var Dispatcher
+	 */
+	private $event;
+
+	/**
+	 * @param Application $app
+	 * @param Repository $config
+	 * @param Dispatcher $event
+	 */
+	public function __construct(Application $app, Repository $config, Dispatcher $event) {
+	    parent::__construct($app);
+		
+		$this->config = $config;
+		$this->event = $event;
+	}
 
 	/**
 	 * Bootstrap the application events.
@@ -29,11 +53,13 @@ class AuthServiceProvider extends ServiceProvider
 	{
 		$this->package('ipunkt/auth');
 
-		if (Config::get('auth::set_usermodel', false) == true)
-			Config::set('auth.model', 'Ipunkt\Auth\models\EloquentUser');
+		if ($this->config->get('auth::set_usermodel', false) == true)
+			$this->config->set('auth.model', 'Ipunkt\Auth\models\EloquentUser');
 
-		if (Config::get('auth::set_repository', false) == true)
-			App::bind('Ipunkt\Auth\Repositories\RepositoryInterface', 'Ipunkt\Auth\Repositories\EloquentRepository');
+		if ($this->config->get('auth::set_repository', false) == true)
+			$this->app->bind('Ipunkt\Auth\Repositories\RepositoryInterface', 'Ipunkt\Auth\Repositories\EloquentRepository');
+
+		$this->registerEventListeners();
 
 		require_once __DIR__ . "/../../routes.php";
 	}
@@ -55,5 +81,20 @@ class AuthServiceProvider extends ServiceProvider
 	public function provides()
 	{
 		return array();
+	}
+
+	protected function registerEventListeners() {
+		$registrationModel = $this->config->get('auth::registration_model');
+		
+		switch ($registrationModel) {
+			case 'single_opt_in':
+				$this->event->listen('Ipunkt.Auth.*', 'Ipunkt\Auth\Listeners\SingleOptInListener');
+				break;
+			case 'double_opt_in':
+				$this->event->listen('Ipunkt.Auth.*', 'Ipunkt\Auth\Listeners\DoubleOptInListener');
+				break;
+
+			default:
+		}
 	}
 }
