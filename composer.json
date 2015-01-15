@@ -18,7 +18,8 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.2.*",
-		  "ipunkt/permissions": "1.*"
+		"ipunkt/permissions": "1.*",
+        "laracasts/commander": "~1.0"
     },
     "require-dev": {
         "orchestra/testbench": "2.2.*"
