@@ -21,7 +21,7 @@
             @endif
             @if ( $errors->has( 'email' ) )
                 <span class="text-danger">
-                    {{ trans( 'auth::'.$errors->first( 'email' ) ) }}
+                    {{ $errors->first( 'email' ) }}
                 </span>
             @endif
         </div>
@@ -40,7 +40,7 @@
 
             @if ( $errors->has( $extra_field['name'] ) )
                 <span class="text-danger">
-                    {{ trans( 'auth::'.$errors->first( $extra_field['name'] ) ) }}
+                    {{ $errors->first( $extra_field['name'] ) }}
                 </span>
             @endif
         </div>
@@ -56,7 +56,7 @@
 
             @if ( $errors->has( 'password' ) )
                 <span class="text-danger">
-                    {{ trans( 'auth::'.$errors->first( 'password' ) ) }}
+                    {{ $errors->first( 'password' ) }}
                 </span>
             @endif
         </div>
@@ -68,7 +68,7 @@
             {{ Form::password('password_confirmation') }}
             @if ( $errors->has( 'password_confirmation' ) )
                 <span class="text-danger">
-                    {{  trans( 'auth::'. $errors->first( 'password_confirmation' ) )  }}
+                    {{   $errors->first( 'password_confirmation' )  }}
                 </span>
             @endif
         </div>
