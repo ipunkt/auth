@@ -95,8 +95,9 @@
 @foreach ($extra_fields as $extra_field)
 <div class="row">
     <div class="col-sm-12">
-        {{ Form::label( $extra_field['name'], trans($extra_field['name']) ) }}
-        {{ Form::input($extra_field['form_type'], $extra_field['name'], $user->getExtra($extra_field['name']) ) }}
+        <?PHP $fieldName = 'extraFields['.$extra_field['name'].']'; ?>
+        {{ Form::label( $fieldName, trans($extra_field['name']) ) }}
+        {{ Form::input($extra_field['form_type'], $fieldName, $user->getExtra($extra_field['name']) ) }}
         @if ( $errors->has( $extra_field['name'] ) )
                     <span class="text-danger">
                         {{  trans( 'auth::'. $errors->first( $extra_field['name'] ) )  }}

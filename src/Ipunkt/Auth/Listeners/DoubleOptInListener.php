@@ -1,14 +1,15 @@
 <?php namespace Ipunkt\Auth\Listeners;
 
 use Ipunkt\Auth\Events\UserWasCreated;
+use Ipunkt\Auth\Events\UserWasRegistered;
 use Laracasts\Commander\CommanderTrait;
 use Laracasts\Commander\Events\EventListener;
 
 /**
- * Class SingleOptInListener
+ * Class DoubleOptInListener
  * @package Ipunkt\Auth\Listeners
  */
-class SingleOptInListener extends EventListener {
+class DoubleOptInListener extends EventListener {
 	
 	use CommanderTrait;
 
@@ -17,8 +18,13 @@ class SingleOptInListener extends EventListener {
 	 */
 	public function whenUserWasCreated(UserWasCreated $event) {
 		$user = $event->user;
-		$user->setEnabled(true);
-		
+		$user->setEnabled(false);
+
 		$this->execute( 'Ipunkt\Auth\Commands\UserStoreCommand', compact('user') );
 	}
+	
+	public function whenUserWasRegistered(UserWasRegistered $event) {
+		$this->execute( 'Ipunkt\Auth\Commands\UserActivationEmailCommand', compact('user') );
+	}
+	
 }
