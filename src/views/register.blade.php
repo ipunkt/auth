@@ -32,10 +32,11 @@
         <div class="col-sm-12">
             {{ Form::label( $extra_field['name'], trans('auth::user.'.$extra_field['name']) ) }}
 
+            <?PHP $fieldName = 'extraFields['.$extra_field['name'].']' ?>
             @if ( isset($registerInfo) )
-                {{ Form::text( $extra_field['name'], $registerInfo->getInfo($extra_field['name']) ) }}
+                {{ Form::text( $fieldName, $registerInfo->getInfo($extra_field['name']) ) }}
             @else
-                {{ Form::text( $extra_field['name'] ) }}
+                {{ Form::text( $fieldName ) }}
             @endif
 
             @if ( $errors->has( $extra_field['name'] ) )
