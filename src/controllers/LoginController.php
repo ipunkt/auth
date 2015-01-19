@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * UserInterface: sven
- * Date: 15.05.14
- * Time: 10:09
- */
-
-namespace Ipunkt\Auth;
-
+<?php namespace Ipunkt\Auth;
 
 use Auth;
 use Config;
@@ -19,9 +10,10 @@ use View;
 
 /**
  * Class LoginController
- * @package Ipunkt\Simpleauth
  *
  * Brings a simple login interface to be used with the package if nothing fancy is necessary
+ * 
+ * @package Ipunkt\Simpleauth
  */
 class LoginController extends \Controller {
     /**
@@ -48,7 +40,6 @@ class LoginController extends \Controller {
 
         $identifier_field = Config::get('auth::user_table.login_through_field');
         $password_field = 'password';
-
 
         $credentials = [
             $identifier_field => Input::get($identifier_field),
@@ -81,4 +72,4 @@ class LoginController extends \Controller {
         Auth::logout();
         return Redirect::route('auth.login')->with('success', trans('auth::user.logout success', ['user' => $username]) );
     }
-} 
+}
