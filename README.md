@@ -1,11 +1,9 @@
-[![Latest Stable Version](https://poser.pugx.org/ipunkt/auth/v/stable.svg)](https://packagist.org/packages/ipunkt/auth) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/auth/v/unstable.svg)](https://packagist.org/packages/ipunkt/auth) [![License](https://poser.pugx.org/ipunkt/auth/license.svg)](https://packagist.org/packages/ipunkt/auth) [![Total Downloads](https://poser.pugx.org/ipunkt/auth/downloads.svg)](https://packagist.org/packages/ipunkt/auth)
-ipunkt/auth
-===========
-This package provides a user model and simple login, remind and register views plus.  
-It also integrates nicely with other ipunkt packages like ipunkt/roles and ipunkt/social-auth to provides a pull-in and
-use environment.
+# ipunkt/auth
 
-# Install
+[![Latest Stable Version](https://poser.pugx.org/ipunkt/auth/v/stable.svg)](https://packagist.org/packages/ipunkt/auth) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/auth/v/unstable.svg)](https://packagist.org/packages/ipunkt/auth) [![License](https://poser.pugx.org/ipunkt/auth/license.svg)](https://packagist.org/packages/ipunkt/auth) [![Total Downloads](https://poser.pugx.org/ipunkt/auth/downloads.svg)](https://packagist.org/packages/ipunkt/auth)
+
+This package provides a user model and simple login, plus remind and register views.
+It integrates nicely with other ipunkt packages like [ipunkt/roles](https://github.com/ipunkt/roles) and [ipunkt/social-auth](https://github.com/ipunkt/social-auth) to provide a pull-in-and-use-it environment.
 
 ## Installation
 
@@ -26,15 +24,16 @@ Add to your composer.json following lines
 
         `php artisan config:publish ipunkt/auth`
 	
-- Edit the 'user_table' variable to suit your needs
+- Edit the `user_table` config file to suit your needs
 - Migrate the user table by doing
 
         `php artisan migrate --package=ipunkt/auth`
 
-## Use
+## Usage
 
-Link your users to the `auth.login` route to login  
-Link your users to the `auth.logout` route to logout
+Link your users to the route `auth.login` for logging a user in
+
+Link your users to the route `auth.logout` for logging a user out
 
 ### User index
 If you wish to publish a list of all users you can use to the auth.user.login route.
@@ -81,15 +80,15 @@ The default behaviour is to to deny deletion permission
     then edit them to your likes
 
 ### Change out user model
-To use your own model set the config value 'auth.model' to its classpath.
-If your model does not inherit from eloquent you will also have to replace
-'Ipunkt\Auth\Repositories\RepositoryInterface' in the Laravel IoC
 
-If you simply want to extend the model brought by this package have your own model inherit from Eloquent(/Ardent/...)
-and implement Ipunkt\Auth\User\UserInterface.
+To use your own model set the config value 'auth.model' to its classpath.
+
+If your model does not inherit from eloquent you will also have to replace 'Ipunkt\Auth\Repositories\RepositoryInterface' in the Laravel IoC
+
+If you simply want to extend the model brought by this package have your own model inherit from Eloquent and implement Ipunkt\Auth\User\UserInterface.
 
 All prebuild functionality is capsulated in traits and can be used directly in your new model
 
 1. EloquentUserTrait combines
-    * EloquentUserInterfaceTrait implements the laravel UserInterface for you(pre-4.2)
-    * EloquentUserRemindableTrait implements the laravel RemindableInterface for you(pre-4.2)
+    * EloquentUserInterfaceTrait implements the laravel UserInterface for you (pre-4.2)
+    * EloquentUserRemindableTrait implements the laravel RemindableInterface for you (pre-4.2)
