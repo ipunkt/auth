@@ -16,7 +16,7 @@ return [
 	 * Possible values:
 	 * - plain: straight forms
 	 * - bootstrap: forms with bootstrap classing
-	 * - custom: specifcy your own view names in the custom_views variable
+	 * - custom: specify your own view names in the custom_views variable
 	 */
 	'views' => 'plain',
 
