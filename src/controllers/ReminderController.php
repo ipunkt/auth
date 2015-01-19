@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * UserInterface: sven
- * Date: 15.05.14
- * Time: 15:07
- */
-
-namespace Ipunkt\Auth;
-
+<?php namespace Ipunkt\Auth;
 
 use App;
 use Config;
@@ -21,9 +12,10 @@ use View;
 
 /**
  * Class ReminderController
- * @package Ipunkt\Simpleauth
  *
- * Performs password reminding and reseting through the package
+ * Performs password reminder and reseting through the package
+ * 
+ * @package Ipunkt\Auth
  */
 class ReminderController extends Controller {
     /**
@@ -34,6 +26,7 @@ class ReminderController extends Controller {
     public function request() {
         $variables = [];
         $variables['extends'] = Config::get('auth::view.extends');
+        
         return View::make('auth::remind', $variables);
     }
 
@@ -78,6 +71,7 @@ class ReminderController extends Controller {
         $variables = [];
         $variables['extends'] = Config::get('auth::view.extends');
         $variables['token'] = $token;
+        
         return View::make('auth::reset', $variables);
     }
 
@@ -115,5 +109,4 @@ class ReminderController extends Controller {
                         ['username' => $changed_user->getIdentifier()]);
         }
     }
-
-} 
+}
