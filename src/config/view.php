@@ -11,7 +11,7 @@
  */
 return [
 	/**
-	 * Selecte your premade forms type.
+	 * Select your form type.
 	 * 
 	 * Possible values:
 	 * - plain: straight forms
