@@ -82,7 +82,7 @@ class AuthServiceProvider extends ServiceProvider
 	}
 
 	protected function registerEventListeners() {
-		$registrationModel = $this->config->get('auth::registration_model');
+		$registrationModel = $this->config->get('auth::registration_strategy');
 		
 		switch ($registrationModel) {
 			case 'single_opt_in':

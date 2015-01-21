@@ -69,6 +69,7 @@ trait EloquentUserTrait {
     public function setPassword($value) {
         $this->force_password_reset = false;
         $this->password = Hash::make($value);
+        //$this->password = $value;
     }
 
     /**

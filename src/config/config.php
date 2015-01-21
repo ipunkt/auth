@@ -68,7 +68,7 @@ return [
      *      
      * 
      */
-    'registration_model' => 'single_opt_in',
+    'registration_strategy' => 'single_opt_in',
 
     /**
      * This decides how the UserPermissionChecker gives permissions.

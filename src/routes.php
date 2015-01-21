@@ -69,5 +69,9 @@ Route::group(['prefix' => Config::get('auth::route_prefix')], function() {
 			'destroy' => 'auth.user.destroy',
 		]
 	]);
+	Route::get('/confirm/{token?}', [
+		'uses' => 'Ipunkt\Auth\UserController@confirm',
+		'as' => 'auth.confirm',
+		'before' => 'guest']);
 });
 

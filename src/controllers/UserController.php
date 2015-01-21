@@ -1,5 +1,9 @@
 <?php namespace Ipunkt\Auth;
 
+use Ipunkt\Auth\Events\ConfirmationHasFailed;
+use Laracasts\Commander\Events\DispatchableTrait;
+use Laracasts\Commander\Events\EventGenerator;
+use Request;
 use Auth;
 use Config;
 use Hash;
@@ -16,18 +20,21 @@ use Ipunkt\SocialAuth\SocialAuth;
 use Laracasts\Commander\CommanderTrait;
 use Redirect;
 use Session;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Validator;
 use View;
 
 /**
  * Class UserController
- * 
+ *
  * @package Ipunkt\Auth
  */
 class UserController extends \Controller {
-    
+
+    use DispatchableTrait;
+    use EventGenerator;
     use CommanderTrait;
-    
+
     /**
      * @var Repositories\RepositoryInterface
      */
@@ -39,11 +46,11 @@ class UserController extends \Controller {
     public function __construct(RepositoryInterface $repository) {
         $this->repository = $repository;
     }
-    
+
     protected function getUser($userId) {
         if($userId instanceof UserInterface)
             return $userId;
-        
+
         return $this->repository->findOrFail($userId);
     }
 
@@ -57,22 +64,22 @@ class UserController extends \Controller {
 
         $response = null;
         $user = Auth::user();
-        
-        if( Config::get('auth::publish_user_index') 
+
+        if( Config::get('auth::publish_user_index')
                 || ($user !== null && $user->can('index', $user))
         ) {
-            
+
 			$variables = [];
 			$variables['users'] = $users;
 			$variables['extends'] = Config::get('auth::view.extends');
-            
+
             $response = View::make('auth::user.index', $variables);
-            
+
         } else {
             $response = App::abort(403);
         }
-        
-        
+
+
 
         return $response;
     }
@@ -109,17 +116,17 @@ class UserController extends \Controller {
      */
     public function store() {
         $response = null;
-        
+
         try {
 			$newUser = $this->execute( 'Ipunkt\Auth\Commands\UserRegisterCommand' );
-            
+
             $response = Redirect::to(route('auth.login'))->with('success', trans('auth::user.register success', ['user' => $newUser->email]));
         } catch(ValidationFailedException $e) {
             $response = Redirect::back()->withInput()->withErrors($e->getErrors());
         } catch(UserNotStoredException $e) {
             $response = Redirect::back()->withErrors(['email' => $e->getMessage()]);
         }
-        
+
         return $response;
     }
 
@@ -132,7 +139,7 @@ class UserController extends \Controller {
      */
     public function edit($userId) {
         $user = $this->getUser($userId);
-        
+
         $response = null;
         $extends = Config::get('auth::view.extends');
 
@@ -163,20 +170,20 @@ class UserController extends \Controller {
      */
     public function update($userId) {
         $user = $this->getUser($userId);
-            
+
         // Make sure we have permission to update this user
         if(Auth::user()->can('edit', $user)) {
-            
+
             try {
 				$changes = $this->execute( 'Ipunkt\Auth\Commands\UserEditCommand', array_merge(['user' => $user], Input::all() ) );
-                
+
                 $response = Redirect::route('auth.user.edit', $userId)->with($changes)->with(['message' => 'success']);
             } catch(ValidationFailedException $e) {
                 $response = Redirect::back()->withInput()->withErrors($e->getErrors());
 			} catch(UserNotStoredException $e) {
                 $response = Redirect::back()->withInput()->withErrors(['message' => $e->getMessage()]);
             }
-            
+
             return $response;
         } else {
             $response = Redirect::route('home')->with('message', trans('auth::user.permission_failed',
@@ -193,25 +200,47 @@ class UserController extends \Controller {
      */
     public function destroy($userId) {
         $user = $this->getUser($userId);
-        
+
         $response = null;
         if(Auth::user()->can('delete', $user)) {
 
             $username = $user->getIdentifier();
-            
+
             try {
                 $this->execute( 'Ipunkt\Auth\Commands\UserDeleteCommand', array_merge(['user' => $user], Input::all() ) );
                 $response = Redirect::route('auth.login')->with('success', trans('auth::user.delete success', ['username' => $username]));
-                
+
             } catch(UserNotDeletedException $e) {
                 $response = Redirect::back()->withErrors(['message' => $e->getMessage()]);
             }
-            
+
         } else {
             $response = Redirect::back()->withErrors([
                 'error' => trans('auth::user.delete permission denied', ['username' => $user->getIdentifier()])
             ]);
         }
+        return $response;
+    }
+
+    /**
+     * @param string $key
+     */
+    public function confirm($key = null) {
+        $extends = Config::get('auth::view.extends');
+
+        try {
+
+            $response = $this->execute( 'Ipunkt\Auth\Commands\UserConfirmCommand', ['data' => Request::all()] );
+
+        } catch(RuntimeException $e) {
+            $this->raise(new ConfirmationHasFailed($e));
+
+            $this->dispatchEventsFor($this);
+
+            $response = View::make('auth::user.confirmation.failure', compact('extends'));
+        }
+
+
         return $response;
     }
 }
