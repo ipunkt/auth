@@ -120,7 +120,7 @@ class UserController extends \Controller {
         try {
 			$newUser = $this->execute( 'Ipunkt\Auth\Commands\UserRegisterCommand' );
 
-            $response = Redirect::to(route('auth.login'))->with('success', trans('auth::user.register success', ['user' => $newUser->email]));
+            $response = Redirect::to(route('auth.login'));
         } catch(ValidationFailedException $e) {
             $response = Redirect::back()->withInput()->withErrors($e->getErrors());
         } catch(UserNotStoredException $e) {

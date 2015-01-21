@@ -1,5 +1,6 @@
 <?php namespace Ipunkt\Auth\Listeners;
 
+use Session;
 use Ipunkt\Auth\Events\ConfirmationHasFailed;
 use Ipunkt\Auth\Events\ConfirmationWasAttempted;
 use Ipunkt\Auth\Events\ConfirmationWasSuccessful;
@@ -24,6 +25,8 @@ class SingleOptInListener extends EventListener {
 		$user->setEnabled(true);
 
 		$this->execute( 'Ipunkt\Auth\Commands\UserStoreCommand', compact('user') );
+		Session::flash('success', trans('auth::user.register success', ['user' => $user->email]));
+
 	}
 
 	public function whenConfirmationWasAttempted(ConfirmationWasAttempted $attempted) {
