@@ -12,7 +12,7 @@ return [
     'old_password' => 'Bisheriges Passwort',
     'new_password' => 'Neues Passwort',
     'password' => 'Passwort',
-    'password_confirmation' => 'Password bestätigen',
+    'password_confirmation' => 'Passwort bestätigen',
     'username' => 'Benutzername',
     'reminder' => [
         'subject'=> 'Passwort wird zurückgesetzt.'
