@@ -47,7 +47,7 @@ interface UserInterface extends \Illuminate\Auth\UserInterface, RemindableInterf
      */
     public function setEmail($value);
 
-    /*
+    /**
      * Gets the current value of the email field
      *
      * @return string
@@ -91,13 +91,10 @@ interface UserInterface extends \Illuminate\Auth\UserInterface, RemindableInterf
      */
     public function getForcePasswordReset();
 
-    /*
+    /**
      * Save changes made to this user to the database.
      *
      * @return boolean True if the user was saved, False otherwise
-     */
-    /**
-     * @return bool
      */
     public function save();
 
