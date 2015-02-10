@@ -17,15 +17,14 @@ class UserRegisterCommand {
 	public $extraFields;
 
 	/**
-	 * @param $email
-	 * @param $password
-	 * @param array $extraFields
+	 * @param string $email
+	 * @param string $password
 	 */
-	public function __construct($email, $password, $extraFields = []) {
+	public function __construct($email, $password) {
 
 		$this->email = $email;
 		$this->password = $password;
-		$this->extraFields = $extraFields;
+		$this->extraFields = \Input::except(['_token', 'email', 'password']);
 		
 	}
 	
