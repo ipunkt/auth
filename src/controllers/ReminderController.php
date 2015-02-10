@@ -42,7 +42,7 @@ class ReminderController extends Controller {
             Config::set('auth.reminder.email', 'auth::reminder/email');
 
         $result = Password::remind(Input::only('email'), function ($message) {
-            $message->subject = trans('auth::reminders.email.subject');
+            $message->subject(trans('auth::reminders.email.subject'));
         });
         switch($result) {
             case Password::INVALID_USER:
