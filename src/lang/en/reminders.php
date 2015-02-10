@@ -13,6 +13,6 @@ return [
     'email' => [
         'subject' => 'Request: Password reminder',
         'address' => 'Dear user,',
-        'text' => 'To reset your password on :site please use the following link: :link'
+        'text' => 'To reset your password on :site please use the following link: <a href=":link">:link</a>'
     ]
 ];
