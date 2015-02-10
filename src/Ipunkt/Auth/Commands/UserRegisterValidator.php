@@ -13,7 +13,7 @@ class UserRegisterValidator
 	 */
 	private $rules = [
 		'email' => 'required|email',
-		'password' => 'required|min:1',
+		'password' => 'required|confirmed|min:1',
 	];
 
 	/**
