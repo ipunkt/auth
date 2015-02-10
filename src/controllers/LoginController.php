@@ -50,11 +50,26 @@ class LoginController extends \Controller {
         if(array_key_exists('email', $credentials))
             $credentials['email'] = strtolower($credentials['email']);
 
+	    $rules = array();
+	    $rules['password'] = 'required|min:1';
+	    if(array_key_exists('email', $credentials))
+		    $rules['email'] = 'required|email|exists:' . Config::get('auth::user_table.table_name');
+	    if(array_key_exists('username', $credentials))
+		    $rules['username'] = 'required|min:1|exists:' . Config::get('auth::user_table.table_name');
+
+        $validator = \Validator::make($credentials, $rules);
+    	if ($validator->fails()) {
+		    return Redirect::back()->withInput()->withErrors($validator->errors());
+	    }
+
         if ( Auth::attempt($credentials, true) ) {
             $response = Redirect::intended('/')->with('success');
         } else {
             $errors = new MessageBag();
-            $errors->add('message',  trans('auth::form.login failed', ['username' => $credentials[$identifier_field]]) );
+            if (empty($credentials[$identifier_field]))
+                $errors->add('message',  trans('auth::form.login failed') );
+	        else
+                $errors->add('message',  trans('auth::form.login failed_with_username', ['username' => $credentials[$identifier_field]]) );
             $response = Redirect::back()->withInput()->withErrors($errors);
         }
 
