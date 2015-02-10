@@ -48,7 +48,7 @@
             {{ Form::submit(trans('auth::form.reset')) }}
         </div>
         <div class="col-sm-1 col-sm-offset-10">
-            <a href="{{ route('auth.login') }}">{{ Form::button(trans('auth::form.back')) }}</a>
+            <a href="{{ route('auth.login') }}">{{ trans('auth::form.back') }}</a>
         </div>
     </div>
     {{ Form::close() }}
