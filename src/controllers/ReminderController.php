@@ -88,6 +88,15 @@ class ReminderController extends Controller {
         /** @var $changed_user UserInterface */
         $changed_user = null;
 
+        $validator = \Validator::make($credentials, array(
+		    'email' => 'required|email|exists:' . Config::get('auth::user_table.table_name'),
+		    'password' => 'required|confirmed|min:1',
+		    'token' => 'required|min:1',
+	    ));
+
+	    if ($validator->fails())
+		    return Redirect::back()->withInput()->withErrors($validator->errors());
+
         $result = Password::reset($credentials, function($user, $password) use (&$changed_user) {
             $changed_user = $user;
             $user->setPassword($password);
