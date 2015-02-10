@@ -13,6 +13,6 @@ return [
     'email' => [
         'subject' => 'Anfrage: Passworterinnerung',
         'address' => 'Sehr geehrter Nutzer,',
-        'text' => 'Um das Passwort zu ihrem Account auf :site zurückzusetzen benutzen sie bitte folgenden Link: :link'
+        'text' => 'Um das Passwort zu ihrem Account auf :site zurückzusetzen benutzen sie bitte folgenden Link: <a href=":link">:link</a>'
     ]
 ];
