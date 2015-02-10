@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>{{ trans('auth::reminders.email.header') }}</h2>
+<h2>{{ trans('auth::reminders.email.subject') }}</h2>
 
 <div>
     {{ trans('auth::reminders.email.address') }}<br>
