@@ -17,9 +17,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/contracts": "~1.4",
+        "illuminate/contracts": "~5",
 			"ipunkt/permissions": "dev-l5@dev",
-        "laracasts/commander": "dev-master"
+        "laracasts/commander": "~1.4"
     },
     "require-dev": {
         "orchestra/testbench": "2.2.*"
