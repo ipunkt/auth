@@ -12,7 +12,7 @@ use View;
  * Class LoginController
  *
  * Brings a simple login interface to be used with the package if nothing fancy is necessary
- * 
+ *
  * @package Ipunkt\Simpleauth
  */
 class LoginController extends \Controller {
@@ -82,6 +82,9 @@ class LoginController extends \Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout() {
+
+	    $logoutRedirectRoute = Config::get('auth::routes.redirect');
+
         $identifier_field = Config::get('auth::user_table.login_through_field');
         $username = Auth::user()->$identifier_field;
         Auth::logout();

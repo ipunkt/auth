@@ -1,7 +1,8 @@
 <?php namespace Ipunkt\Auth;
 
 use Ipunkt\Auth\Events\ConfirmationHasFailed;
-use Laracasts\Commander\Events\DispatchableTrait;
+use Laracasts\Commander\
+vents\DispatchableTrait;
 use Laracasts\Commander\Events\EventGenerator;
 use Request;
 use Auth;
@@ -71,7 +72,6 @@ class UserController extends \Controller {
 
 			$variables = [];
 			$variables['users'] = $users;
-			$variables['extends'] = Config::get('auth::view.extends');
 
             $response = View::make('auth::user.index', $variables);
 
@@ -92,8 +92,6 @@ class UserController extends \Controller {
     public function create() {
 
         $variables = [];
-        $variables['extends'] = Config::get('auth::view.extends');
-        $variables['extra_fields'] = Config::get('auth::user_table.extra_fields');
 	    if(class_exists('Ipunkt\SocialAuth\SocialAuth')) {
 			if(\Ipunkt\SocialAuth\SocialAuth::hasRegistration())
 				$variables['registerInfo'] = \Ipunkt\SocialAuth\SocialAuth::getRegistration();
@@ -141,14 +139,11 @@ class UserController extends \Controller {
         $user = $this->getUser($userId);
 
         $response = null;
-        $extends = Config::get('auth::view.extends');
 
         //$permission = 'user.'.$user->getId().'.edit';
         if(Auth::user()->can("edit", $user)) {
             $variables = [];
-            $variables['extends'] = $extends;
             $variables['user'] = $user;
-            $variables['extra_fields'] = Config::get('auth::user_table.extra_fields');
             $variables['can_enable'] = (Auth::user()->can('disable', $user) && !Auth::user()->isEqual($user));
 
             $response = View::make('auth::user/edit', $variables);
@@ -226,7 +221,6 @@ class UserController extends \Controller {
      * @param string $key
      */
     public function confirm($key = null) {
-        $extends = Config::get('auth::view.extends');
 
         try {
 
@@ -237,7 +231,7 @@ class UserController extends \Controller {
 
             $this->dispatchEventsFor($this);
 
-            $response = View::make('auth::user.confirmation.failure', compact('extends'));
+            $response = View::make('auth::user.confirmation.failure');
         }
 
 
