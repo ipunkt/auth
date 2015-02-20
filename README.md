@@ -154,15 +154,14 @@ To create your own registration strategy you will have to register an event list
 
 Example:
 
-{{{
-class RegistrationServiceProvider extends ServiceProvider {
-	public function boot() {
-		if(Config::get('auth::registration_strategy') == 'test_opt_in')
-		Event::listen('Ipunkt.Auth.*', 'Acme\Listeners\TestOptInListener');
+	class RegistrationServiceProvider extends ServiceProvider {
+		public function boot() {
+			if(Config::get('auth::registration_strategy') == 'test_opt_in')
+			Event::listen('Ipunkt.Auth.*', 'Acme\Listeners\TestOptInListener');
+		}
+		
+		public function register() {}
 	}
-	
-	public function register() {}
-}}}
 
 #### Events to listen for
 
