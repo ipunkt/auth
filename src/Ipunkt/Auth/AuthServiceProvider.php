@@ -37,16 +37,6 @@ class AuthServiceProvider extends ServiceProvider
 	private $view;
 
 	/**
-	 * @param Application $app
-	 * @param Repository $config
-	 * @param Dispatcher $event
-	 */
-	public function __construct(Application $app) {
-	    parent::__construct($app);
-
-	}
-
-	/**
 	 * Bootstrap the application events.
 	 *
 	 * @return void
