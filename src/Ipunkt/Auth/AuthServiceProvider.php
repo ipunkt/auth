@@ -44,9 +44,6 @@ class AuthServiceProvider extends ServiceProvider
 	public function __construct(Application $app) {
 	    parent::__construct($app);
 
-		$this->config = $this->app->make( 'Illuminate\Config\Repository' );
-		$this->event = $this->app->make( 'Illuminate\Events\Dispatcher' );
-		$this->view = $this->app->make( 'Illuminate\View\Factory' );
 	}
 
 	/**
@@ -56,6 +53,10 @@ class AuthServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		$this->config = $this->app->make( 'Illuminate\Config\Repository' );
+		$this->event = $this->app->make( 'Illuminate\Events\Dispatcher' );
+		$this->view = $this->app->make( 'Illuminate\View\Factory' );
+
 		$this->package('ipunkt/auth');
 
 		if ($this->config->get('auth::set_usermodel', false) == true)
