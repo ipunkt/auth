@@ -165,33 +165,33 @@ Example:
 
 #### Events to listen for
 
-- whenUserWasCreated(UserWasCreated $event)
+- `whenUserWasCreated(UserWasCreated $event)`
   `UserWasCreated: UserInterface $user`
   This is called when a User has successfully sent valid registration data.
   It is this events responsibility to write the user to the database.
   The default way to do this is by calling the UserStoreCommand:
   `$this->execute( 'Ipunkt\Auth\Commands\UserStoreCommand', ['user' => $event->user] );`
-- whenConfirmationWasAttempted(ConfirmationWasAttempted $confirmation)
+- `whenConfirmationWasAttempted(ConfirmationWasAttempted $confirmation)`
   This is called when a user comes back from a registration link
   
-- whenConfirmationWasSuccessful(ConfirmationWasSuccessful $confirmation)
+- `whenConfirmationWasSuccessful(ConfirmationWasSuccessful $confirmation)`
   This is called when confirmation was successful
 
-- whenConfirmationHasFailed(ConfirmationHasFailed $confirmation)
+- `whenConfirmationHasFailed(ConfirmationHasFailed $confirmation)`
   This is called when confirmation has failed
   
 Also see `Ipunkt\Auth\Listeners\SingleOptInListener` for reference
 
-### Change out user model
+### Change user model
 
-To use your own model set the config value 'auth.model' to its classpath.
+To use your own model set the config value `'auth.model'` to its classpath.
 
-If your model does not inherit from eloquent you will also have to replace 'Ipunkt\Auth\Repositories\RepositoryInterface' in the Laravel IoC
+If your model does not inherit from eloquent you will also have to replace `'Ipunkt\Auth\Repositories\RepositoryInterface'` in the Laravel IoC
 
-If you simply want to extend the model brought by this package have your own model inherit from Eloquent and implement Ipunkt\Auth\User\UserInterface.
+If you simply want to extend the model brought by this package have your own model inherit from Eloquent and implement `Ipunkt\Auth\User\UserInterface`.
 
 All prebuild functionality is capsulated in traits and can be used directly in your new model
 
-1. EloquentUserTrait combines
-    * EloquentUserInterfaceTrait implements the laravel UserInterface for you (pre-4.2)
-    * EloquentUserRemindableTrait implements the laravel RemindableInterface for you (pre-4.2)
+1. `EloquentUserTrait` combines
+    * `EloquentUserInterfaceTrait` implements the laravel `UserInterface` for you (pre-4.2)
+    * `EloquentUserRemindableTrait` implements the laravel `RemindableInterface` for you (pre-4.2)
