@@ -83,7 +83,7 @@ class LoginController extends \Controller {
      */
     public function logout() {
 
-	    $logoutRedirectRoute = Config::get('auth::routes.redirect', 'auth.login');
+	    $logoutRedirectRoute = Config::get('auth::routes.logout', 'auth.login');
 
         $identifier_field = Config::get('auth::user_table.login_through_field');
         $username = Auth::user()->$identifier_field;
