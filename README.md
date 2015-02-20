@@ -153,6 +153,7 @@ Currently:
 To create your own registration strategy you will have to register an event listener to `Ipunkt.Auth.*`
 
 Example:
+
 {{{
 class RegistrationServiceProvider extends ServiceProvider {
 	public function boot() {
